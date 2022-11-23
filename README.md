@@ -1,1 +1,4 @@
-# sqlalchemy-challenge
+In this sqlalchemy challenge, I do some climate analysis on the state of Hawaii, using SQLAlchemy ORM queries, Pandas and Matplotlib.
+I first explored precipitation data, which spans from early 2000s through 2017. However, in order to make the analysis relevant today, I narrowed my scope for most queries to the most recent year of data. I also used Matplotlib charts to visualize the findings. I finished the precipitation analysis witih summary statistics to get an idea of trends of precipitation by dates.
+Next, I did a similar dive into temperature data. I used some of the same tools to view temperature trends over a one year time period. An added element to theis portion of analysis was narrowing by station. I queried to find total stations first. Then narrowed down to the busiest station and parsed out data for this specifica station. I visualized these results with a histogram.
+The last leg of this data analysis journey was to create a climate app in which we can call certain data. I set up JSONified lists to return data about precipitation and temperature.
