@@ -35,12 +35,13 @@ def home():
     return(
         'AVAILABLE ROUTES<br>'
         '/api/v1.0/precipitation<br>'
-        'route3'
-    )
+        '/api/v1.0/stations'         
+           )
 
     #  Precipitation Route
 @app.route('/api/v1.0/precipitation')
 def route2():
+
     # Convert the query results to a dictionary using `date` as the key and `prcp` as the value.
     session = Session(engine)
     precip = session.query(measurement.date, measurement.prcp)
@@ -62,12 +63,30 @@ def route2():
 
 
     # Station Route
-        # @app.route('/api/v1.0/stations')
-        # def route3():
-    # Query the dates and temperature observations of the most active station for the previous year of data.
+@app.route('/api/v1.0/stations')
+def route3():
+
+     # Query the dates and temperature observations of the most active station for the previous year of data.
+
+    session = Session(engine)
+    temp = session.query(measurement.date, measurement.tobs).filter(measurement.date >= '2016-08-23').filter(measurement.station == 'USC00519281')
+    session.close()
+   
     # Return a JSON list of temperature observations (TOBS) for the previous year.
 
+    temp_days = []
+        
+    for date, tobs in temp:
+        temp_dict = {}
 
+        temp_dict['date'] = date
+        temp_dict['tobs'] = tobs
+
+        temp_days.append(temp_dict)
+
+    return jsonify(temp_days)
+
+    
     # * `/api/v1.0/<start>` and `/api/v1.0/<start>/<end>`
     #  * Return a JSON list of the minimum temperature, the average temperature, and the maximum temperature for a given start or start-end range.
     # * When given the start only, calculate `TMIN`, `TAVG`, and `TMAX` for all dates greater than or equal to the start date.
